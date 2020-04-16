@@ -44,6 +44,14 @@ function iniciarJogo() {
   if (cobrinha[0].y > 15 * box && direcao == "down") cobrinha[0].y = 0;
   if (cobrinha[0].y < 0 && direcao == "up") cobrinha[0].y = 16 * box;
 
+  for (i = 1; i < cobrinha.length; i++) {
+    if (cobrinha[0].x == cobrinha[i].x && cobrinha[0].y == cobrinha[i].y) {
+      clearInterval(jogo);
+      alert("Você perdeu :(");
+      window.location.reload();
+    }
+  }
+
   criarBackground();
   criarCobrinha();
   desenharComida();
@@ -56,8 +64,11 @@ function iniciarJogo() {
   if (direcao == "up") cobrinhaPosY -= box;
   if (direcao == "down") cobrinhaPosY += box;
 
-  cobrinha.pop();
-
+  if (cobrinhaPosX != comida.x || cobrinhaPosY != comida.y) cobrinha.pop();
+  else {
+    comida.x = Math.floor(Math.random() * 15 + 1) * box;
+    comida.y = Math.floor(Math.random() * 15 + 1) * box;
+  }
   let cabecaCobrinha = {
     x: cobrinhaPosX,
     y: cobrinhaPosY,
