@@ -6,6 +6,7 @@ cobrinha[0] = {
   x: 8 * box,
   y: 8 * box,
 };
+var direcao = "right";
 
 function criarBackground() {
   context.fillStyle = "lightgreen";
@@ -19,5 +20,24 @@ function criarCobrinha() {
   }
 }
 
-criarBackground();
-criarCobrinha();
+function iniciarJogo() {
+  criarBackground();
+  criarCobrinha();
+
+  let cobrinhaPosX = cobrinha[0].x;
+  let cobrinhaPosY = cobrinha[0].y;
+  let cabecaCobrinha = {
+    x: cobrinhaPosX,
+    y: cobrinhaPosY,
+  };
+
+  if (direcao == "right") cobrinhaPosX += box;
+  if (direcao == "left") cobrinhaPosY -= box;
+  if (direcao == "up") cobrinhaPosY -= box;
+  if (direcao == "down") cobrinhaPosY += box;
+
+  cobrinha.pop();
+  snake.unshift(cabecaCobrinha);
+}
+
+var jogo = setInterval(iniciarJogo, 100);
